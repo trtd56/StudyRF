@@ -66,3 +66,16 @@ False
 
 Deep Q-Networkを使ったエージェント。  
 DoubleDQNを使っている。
+
+## 作成したエージェントのアップロード
+
+## 参考
+
+その他の環境を試したい方は[OpenAIGymの公式サイト](https://gym.openai.com/envs/)を参考にするとよい。
+
+Atariなどは非常に面白そうだが、CNNの知識がある程度必要であり、GPUがない場合の学習時間が現実的ではないので、導入にはClassic controlがおすすめ。
+
+- CartPole-v0
+- Acrobot-v1
+- MountainCar-v0
+- Pendulum-v0
