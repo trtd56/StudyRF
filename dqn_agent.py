@@ -79,13 +79,14 @@ for i in range(n_episodes):
         R += reward
         t += 1
     if i % 10 == 0:
-        print("Episode {} finished. sum of reward is {}. agent statistics {}".format(
+        print("train pisode {} finished. sum of reward is {}. agent statistics {}".format(
                                   i, R, agent.get_statistics()))
     agent.stop_episode_and_train(obs, reward, done)
-print('train finished.')
+print('train finished')
 
 # テスト
 # 探索は行わず、学習結果を使って行動を選択する
+print('start test')
 for i in range(10):
     obs = env.reset()
     done = False
@@ -99,3 +100,4 @@ for i in range(10):
         t += 1
     print('test episode:', i, 'R:', R)
     agent.stop_episode()
+print('test finished')
