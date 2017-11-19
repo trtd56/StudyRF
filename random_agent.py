@@ -1,6 +1,7 @@
 # -*- cording: utf-8 -*-
 
 import gym
+
 env = gym.make('CartPole-v0')
 
 for i in range(10):
