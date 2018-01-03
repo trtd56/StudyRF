@@ -3,6 +3,7 @@
 import gym
 
 env = gym.make('CartPole-v0')
+#env = gym.make('MountainCar-v0')
 
 for i in range(10):
     obs = env.reset()

@@ -9,6 +9,7 @@ import numpy as np
 
 # 環境設定
 env_name = 'CartPole-v0'
+#env_name = 'MountainCar-v0'
 n_episodes = 200
 max_episode_len = 200
 
