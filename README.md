@@ -45,13 +45,13 @@ $ python
 ##### 環境の更新
 
 ~~~python
->>>> action = env.action_space.sample()  # 行動のサンプルを取得
+>>>> action = env.action_space.sample()  # 行動のサンプルを取得(0:カートを左へ移動/1:カートを右へ移動)
 >>>> print(action)
 1
 >>>> observation, reward, done, info = env.step(action)  # サンプリングした行動で環境を更新
 >>>> print(observation)  更新後の環境
 [-0.04426651  0.21100144  0.04230242 -0.26755111]
->>>> print(reward)  # 報酬
+>>>> print(reward)  # 報酬(Θが±20以内なら1)
 1
 >>>> print(done)  # エピソードが終了したかどうか(Θが±20を超えるとエピソード終了)
 False
