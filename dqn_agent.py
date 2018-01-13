@@ -6,17 +6,28 @@ import chainer.links as L
 import chainerrl
 import gym
 import numpy as np
+import argparse
+
+parser = argparse.ArgumentParser(description='Double DQN Agent')
+parser.add_argument('--env', '-e', type=str, default='CartPole-v0',
+                    help='実行するClassic controlの環境名')
+parser.add_argument('--unit', '-u', type=int, default=50,
+                    help='隠れ層のユニット数')
+parser.add_argument('--gamma', '-g', type=float, default=0.95,
+                    help='報酬の割引率')
+parser.add_argument('--epsilon', '-ep', type=float, default=0.3,
+                    help='探索と活用の割合(Epsilon-Greedy)')
+args = parser.parse_args()
 
 # 環境設定
-env_name = 'CartPole-v0'
-#env_name = 'MountainCar-v0'
-n_episodes = 200
+env_name = args.env
+n_episodes = 100
 max_episode_len = 200
 
 # Agentパラメーター
-n_hidden_channels = 50  # 隠れ層のユニット数
-gamma = 0.95  # 報酬の割引率
-epsilon = 0.3  # 探索と活用の割合(Epsilon-Greedy)
+n_hidden_channels = args.unit
+gamma = args.gamma
+epsilon = args.epsilon
 capacity = 10 ** 6 # 過去の経験をどれだけ覚えておくか(Experience Replay)
 replay_start_size = 500  # どれだけ環境情報を得たら学習を始めるか
 update_interval = 1  # ネットワークの更新頻度
@@ -67,7 +78,8 @@ agent = chainerrl.agents.DoubleDQN(
 
 # 学習
 # ここで毎回画面描画すると時間がかかるので10エピソード毎の結果を表示させる
-print('start train')
+print('--- start train ---\n')
+print('episode\tn_step\treward')
 for i in range(n_episodes):
     obs = env.reset()
     reward = 0
@@ -79,16 +91,14 @@ for i in range(n_episodes):
         obs, reward, done, _ = env.step(action)
         R += reward
         t += 1
-    if i % 10 == 0:
-        print("train pisode {} finished. sum of reward is {}. agent statistics {}".format(
-                                  i, R, agent.get_statistics()))
     agent.stop_episode_and_train(obs, reward, done)
-print('train finished')
+    print('{0}\t{1}\t{2}'.format(i, t, R))
+print('\n--- train finished ---')
 
 # テスト
 # 探索は行わず、学習結果を使って行動を選択する
-print('start test')
-for i in range(10):
+print('--- start test ---\n')
+for i in range(5):
     obs = env.reset()
     done = False
     R = 0
@@ -101,4 +111,4 @@ for i in range(10):
         t += 1
     print('test episode:', i, 'R:', R)
     agent.stop_episode()
-print('test finished')
+print('\n--- test finished ---')
