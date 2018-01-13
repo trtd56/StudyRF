@@ -130,7 +130,52 @@ episode n_step  reward
 #### dqn_agent
 
 Deep Q-Networkを使ったエージェント。  
-DoubleDQNを使っている。
+[DoubleDQN](https://arxiv.org/abs/1509.06461)を使っている。
+
+~~~bash
+(C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py -h
+usage: dqn_agent.py [-h] [--env ENV] [--unit UNIT] [--gamma GAMMA]
+                    [--epsilon EPSILON]
+
+Double DQN Agent
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --env ENV, -e ENV     実行するClassic controlの環境名
+  --unit UNIT, -u UNIT  隠れ層のユニット数
+  --gamma GAMMA, -g GAMMA
+                        報酬の割引率
+  --epsilon EPSILON, -ep EPSILON
+                        探索と活用の割合(Epsilon-Greedy)
+~~~
+
+##### 実行例
+
+~~~bash
+(C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py
+--- start train ---
+
+episode n_step  reward
+0       29      29.0
+1       20      20.0
+2       9       9.0
+　・
+　・
+　・
+98      200     200.0
+99      200     200.0
+
+--- train finished ---
+--- start test ---
+
+test episode: 0 R: 200.0
+test episode: 1 R: 200.0
+test episode: 2 R: 200.0
+test episode: 3 R: 200.0
+test episode: 4 R: 200.0
+
+--- test finished ---
+~~~
 
 ## 作成したエージェントのアップロード
 
