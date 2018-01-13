@@ -1,19 +1,23 @@
 # -*- cording: utf-8 -*-
 
 import gym
+import sys
 
-env = gym.make('CartPole-v0')
-#env = gym.make('MountainCar-v0')
+# 環境名の取得
+args = sys.argv
+env_name = args[1]
+env = gym.make(env_name)
 
-for i in range(10):
+print('episode\tn_step\treward')
+for i in range(5):
     obs = env.reset()
     done = False
-    R = 0
-    t = 0
-    while not done and t < 200:
+    R = 0  # 合計報酬
+    t = 0  # 継続したステップ数
+    while not done and t < 200:  # 最大200ステップで終了
         env.render()
         action = env.action_space.sample()
         obs, r, done, _ = env.step(action)
-        R += r
+        R += r  # 報酬を加算していく
         t += 1
-    print('episode:', i, 'R:', R)
+    print('{0}\t{1}\t{2}'.format(i, t, R))
