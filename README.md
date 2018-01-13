@@ -78,7 +78,7 @@ X       Vx      Θ      VΘ     reward  action
 
 ### エージェント
 
-サンプルのエージェントを2個作った
+サンプルのエージェントを3個作った
 
 #### random_agent
 
@@ -106,6 +106,26 @@ episode n_step  reward
 - episode: エピソード番号
 - n_step: 継続したステップ数
 - reward: 取得した合計報酬
+
+#### cart_pole_agent
+
+CartPoleに特化してハードコーディングしたエージェント。  
+VΘが正ならば右、負か0ならば左に動く。
+
+##### 実行例
+
+~~~bash
+(C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python cart_pole_agent.py
+episode n_step  reward
+0       200     200.0
+1       200     200.0
+2       199     199.0
+3       200     200.0
+4       141     141.0
+~~~
+
+ほぼほぼ200ステップ継続させることができる。  
+こういったことができるのは、CartPoleの世界を構成する要素をすべて把握することができるから。
 
 #### dqn_agent
 
