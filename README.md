@@ -51,9 +51,9 @@ $ python
 >>>> observation, reward, done, info = env.step(action)  # サンプリングした行動で環境を更新
 >>>> print(observation)  更新後の環境
 [-0.04426651  0.21100144  0.04230242 -0.26755111]
->>>> print(reward)  # 報酬(Θが±20以内なら1)
+>>>> print(reward)  # 報酬(Θが±0.209以内なら1)
 1
->>>> print(done)  # エピソードが終了したかどうか(Θが±20を超えるとエピソード終了)
+>>>> print(done)  # エピソードが終了したかどうか(Θが±0.209を超えるとエピソード終了)
 False
 >>>> print(info)  # 環境情報(今回は使わない)
 {}
