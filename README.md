@@ -38,6 +38,10 @@ $ python
 >>>> print(observation)
 [-0.04459665  0.0165073   0.04207109  0.01156669]
 ~~~
+
+環境の各要素は下記の状態と対応している
+![CartPole_state](https://github.com/trtd56/StudyRF/blob/master/pict/CartPole_state.png)
+
 ##### 環境の更新
 
 ~~~python
@@ -49,11 +53,14 @@ $ python
 [-0.04426651  0.21100144  0.04230242 -0.26755111]
 >>>> print(reward)  # 報酬
 1
->>>> print(done)  # エピソードが終了したかどうか
+>>>> print(done)  # エピソードが終了したかどうか(Θが±20を超えるとエピソード終了)
 False
 >>>> print(info)  # 環境情報(今回は使わない)
 {}
 ~~~
+
+
+
 ### エージェント
 
 サンプルのエージェントを2個作った
