@@ -11,27 +11,21 @@ import argparse
 parser = argparse.ArgumentParser(description='Double DQN Agent')
 parser.add_argument('--env', '-e', type=str, default='CartPole-v0',
                     help='実行するClassic controlの環境名')
-parser.add_argument('--unit', '-u', type=int, default=50,
-                    help='隠れ層のユニット数')
-parser.add_argument('--gamma', '-g', type=float, default=0.95,
-                    help='報酬の割引率')
-parser.add_argument('--epsilon', '-ep', type=float, default=0.3,
-                    help='探索と活用の割合(Epsilon-Greedy)')
 args = parser.parse_args()
 
 # 環境設定
 env_name = args.env
-n_episodes = 100
+n_episodes = 100  # 100エピソード学習する
 max_episode_len = 200
 
-# Agentパラメーター
-n_hidden_channels = args.unit
-gamma = args.gamma
-epsilon = args.epsilon
-capacity = 10 ** 6 # 過去の経験をどれだけ覚えておくか(Experience Replay)
-replay_start_size = 500  # どれだけ環境情報を得たら学習を始めるか
-update_interval = 1  # ネットワークの更新頻度
-target_update_interval = 100  # targetネットワークの更新(コピー)頻度
+# 主なAgentのパラメーター
+n_hidden_channels = 50
+gamma = 0.95
+epsilon = 0.3
+capacity = 10 ** 6
+replay_start_size = 500
+update_interval = 1
+target_update_interval = 100
 
 class QFunction(chainer.Chain):
     """
@@ -70,14 +64,12 @@ replay_buffer = chainerrl.replay_buffer.ReplayBuffer(capacity)
 # Agentに入ってくる環境情報をchainerが使えるnumpy.float32に変換する
 phi = lambda x: x.astype(np.float32, copy=False) 
 # Agent定義
-# せっかくなのでDoubleDQNを使ってみる
-agent = chainerrl.agents.DoubleDQN(
+agent = chainerrl.agents.DQN(
     q_func, optimizer, replay_buffer, gamma, explorer,
     replay_start_size=replay_start_size, update_interval=update_interval,
     target_update_interval=target_update_interval, phi=phi)
 
 # 学習
-# ここで毎回画面描画すると時間がかかるので10エピソード毎の結果を表示させる
 print('--- start train ---\n')
 print('episode\tn_step\treward')
 for i in range(n_episodes):
@@ -109,6 +101,6 @@ for i in range(5):
         obs, r, done, _ = env.step(action)
         R += r
         t += 1
-    print('test episode:', i, 'R:', R)
+    print('test episode', i, '\n\treward:', R)
     agent.stop_episode()
 print('\n--- test finished ---')
