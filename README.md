@@ -130,29 +130,23 @@ episode n_step  reward
 #### dqn_agent
 
 Deep Q-Networkを使ったエージェント。  
-[DoubleDQN](https://arxiv.org/abs/1509.06461)を使っている。
+
 
 ~~~bash
 (C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py -h
-usage: dqn_agent.py [-h] [--env ENV] [--unit UNIT] [--gamma GAMMA]
-                    [--epsilon EPSILON]
+usage: dqn_agent.py [-h] [--env ENV]
 
 Double DQN Agent
 
 optional arguments:
   -h, --help            show this help message and exit
   --env ENV, -e ENV     実行するClassic controlの環境名
-  --unit UNIT, -u UNIT  隠れ層のユニット数
-  --gamma GAMMA, -g GAMMA
-                        報酬の割引率
-  --epsilon EPSILON, -ep EPSILON
-                        探索と活用の割合(Epsilon-Greedy)
 ~~~
 
 ##### 実行例
 
 ~~~bash
-(C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py
+(C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py -e CartPole-v0
 --- start train ---
 
 episode n_step  reward
@@ -176,6 +170,58 @@ test episode: 4 R: 200.0
 
 --- test finished ---
 ~~~
+
+#### パラメータ調整
+
+- エピソード数を増やす
+
+~~~python
+- 18 n_episodes = 100  # 100エピソード学習する
++ 18 n_episodes = 200  # 200エピソード学習する
+~~~
+
+- Agentのパラメータをいじってみる
+
+~~~python
+22 n_hidden_channels = 50        # ニューラルネットの隠れ層のユニット数
+23 gamma = 0.95                  # 報酬の割引率
+24 epsilon = 0.3                 # Epsilon-Greedyで
+25 capacity = 10 ** 6            # 過去の経験をどれだけ覚えておくか(Experience Replay)
+26 replay_start_size = 500       # どれだけ環境情報を得たら学習を始めるか
+27 update_interval = 1           # ネットワークの更新頻度
+28 target_update_interval = 100  # targetネットワークの更新(コピー)頻度
+~~~
+
+- 最適化手法を変えてみる。  
+chainerので使える最適化手法は[公式ドキュメント](http://docs.chainer.org/en/stable/reference/optimizers.html)を参照。
+
+~~~python
+- 55 optimizer = chainer.optimizers.Adam()
++ 55 optimizer = chainer.optimizers.RMSprop()  # 他にもAdaDeltaやSMORMS3など。lrなどの学習率を操作してもよい。
+~~~
+
+- epsilonを線形に減衰させてみる。
+  - start_epsilon: epsilonの初期値(ex. 1.0)
+  - end_epsilon: epsilonの最小値(ex. 0.01)
+  - decay_steps: epsilonの最小値まで何stepかけて減衰させるか(ex. 5000)
+ 
+~~~python
+- 60 explorer = chainerrl.explorers.ConstantEpsilonGreedy(
+- 61     epsilon, random_action_func=env.action_space.sample)
++ 60 explorer = chainerrl.explorers.LinearDecayEpsilonGreedy(
++ 61     start_epsilon=start_epsilon, end_epsilon=end_epsilon, decay_steps=decay_steps, random_action_func=env.action_space.sample)
+~~~
+
+- [DoubleDQN](https://arxiv.org/abs/1509.06461)を使ってみる。  
+ハイパーパラメータはDQNと同じ。
+
+~~~python
+- 67 agent = chainerrl.agents.DQN(
++ 67 agent = chainerrl.agents.DoubleDQN(
+~~~
+
+- ニューラルネットワークをいじる  
+30～46行目のQFunctionの構成を変更する
 
 ## 作成したエージェントのアップロード
 
