@@ -80,7 +80,7 @@ X       Vx      Θ      VΘ     reward  action
 
 サンプルのエージェントを3個作った
 
-#### random_agent
+#### [random_agent](https://github.com/trtd56/StudyRF/blob/master/random_agent.py)
 
 ランダムに動くエージェント。  
 第1引数にClassic controlの環境名を指定する。
@@ -107,7 +107,7 @@ episode n_step  reward
 - n_step: 継続したステップ数
 - reward: 取得した合計報酬
 
-#### cart_pole_agent
+#### [cart_pole_agent](https://github.com/trtd56/StudyRF/blob/master/cart_pole_agent.py)
 
 CartPoleに特化してハードコーディングしたエージェント。  
 VΘが正ならば右、負か0ならば左に動く。
@@ -127,10 +127,9 @@ episode n_step  reward
 ほぼほぼ200ステップ継続させることができる。  
 こういったことができるのは、CartPoleの世界を構成する要素をすべて把握することができるから。
 
-#### dqn_agent
+#### [dqn_agent](https://github.com/trtd56/StudyRF/blob/master/dqn_agent.py)
 
 Deep Q-Networkを使ったエージェント。  
-
 
 ~~~bash
 (C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py -h
