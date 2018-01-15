@@ -144,6 +144,9 @@ optional arguments:
 
 ##### 実行例
 
+学習を行うtrainステップと、学習の評価を行うtestステップに分かれている。  
+testステップでは探索は行わない。(ランダム行動無し)
+
 ~~~bash
 (C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py -e CartPole-v0
 --- start train ---
@@ -161,11 +164,13 @@ episode n_step  reward
 --- train finished ---
 --- start test ---
 
-test episode: 0 R: 200.0
-test episode: 1 R: 200.0
-test episode: 2 R: 200.0
-test episode: 3 R: 200.0
-test episode: 4 R: 200.0
+test episode 0
+        reward: 200.0
+　・
+　・
+　・
+test episode 4
+        reward: 200.0
 
 --- test finished ---
 ~~~
