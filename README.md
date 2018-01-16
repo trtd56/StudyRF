@@ -135,7 +135,7 @@ Deep Q-Networkを使ったエージェント。
 (C:\Users\trtd\Miniconda3) C:\Users\trtd\StudyRF>python dqn_agent.py -h
 usage: dqn_agent.py [-h] [--env ENV]
 
-Double DQN Agent
+DQN Agent
 
 optional arguments:
   -h, --help            show this help message and exit
