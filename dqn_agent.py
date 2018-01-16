@@ -8,7 +8,7 @@ import gym
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description='Double DQN Agent')
+parser = argparse.ArgumentParser(description='DQN Agent')
 parser.add_argument('--env', '-e', type=str, default='CartPole-v0',
                     help='実行するClassic controlの環境名')
 args = parser.parse_args()
